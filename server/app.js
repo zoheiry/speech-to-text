@@ -1,6 +1,5 @@
 const express = require('express');
 const userRouter = require('./routes/user');
-const activitiesRouter = require('./routes/activity');
 const authRouter = require('./routes/auth');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -31,7 +30,7 @@ app.use(helmet());
 
 /** set up routes {API Endpoints} */
 app.use('/api', authRouter);
-app.use('/api', validateUser, userRouter, activitiesRouter);
+app.use('/api', validateUser, userRouter);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');

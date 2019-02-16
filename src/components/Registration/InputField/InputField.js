@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { FiLock, FiMail } from 'react-icons/fi';
 
 const InputWrapper = styled('div')`
-  border-bottom: solid 1px #FFF;
+  border-bottom: solid 1px ${p => p.theme.primary};
   margin-bottom: 15px;
   display: flex;
   align-items: center;
@@ -15,25 +15,22 @@ const Icon = styled('div')`
 `;
 
 const Input = styled('input')`
-  background-color: transparent;
+  background: #fff;
   display: block;
   width: 100%;
-  color: #FFF;
+  color: ${p => p.theme.grey01};
   padding: 8px;
   border: none;
   outline: none;
   font-size: inherit;
-  &::placeholder {
-    color: rgba(255, 255, 255, 0.8);
-  }
 `;
 
 const InputField = ({ type, onChange, placeholder }) => (
   <InputWrapper>
     <Icon>
       {type === 'email'
-        ? <FiMail color="#FFF" />
-        : <FiLock color="#FFF" />
+        ? <FiMail color="#333" />
+        : <FiLock color="#333" />
       }
     </Icon>
     <Input

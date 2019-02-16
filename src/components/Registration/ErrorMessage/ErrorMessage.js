@@ -6,7 +6,6 @@ const StyledError = styled('div')`
   color: ${p => p.theme.danger};
   margin-bottom: 15px;
   font-weight: 400;
-  background: rgba(255, 255, 255, 0.7);
   font-size: 14px;
   padding: 8px;
 `;

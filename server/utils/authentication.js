@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-export const validateUser = (req, res, next) => {
+const validateUser = (req, res, next) => {
   jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), (err, decoded) => {
     if (err) {
       if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') {
@@ -16,4 +16,4 @@ export const validateUser = (req, res, next) => {
   });
 };
 
-export default { validateUser };
+module.exports = { validateUser };

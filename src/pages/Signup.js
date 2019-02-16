@@ -7,7 +7,7 @@ import { get } from 'lodash';
 
 import { getCookie } from '../utils/cookies';
 import { authenticateUser, createUser } from '../actions/user';
-import { SignupForm } from '../components/Registration';
+import { SignupForm, FormWrapper } from '../components/Registration';
 import LogoImage from '../static/img/cf_logo.svg';
 
 const Logo = styled('div')`
@@ -17,7 +17,7 @@ const Logo = styled('div')`
 `;
 
 const Footer = styled('div')`
-  color: #FFF;
+  color: ${p => p.theme.grey01};
   font-size: 14px;
   a {
     color: ${p => p.theme.success};
@@ -48,7 +48,7 @@ class Signup extends Component {
   render() {
     const { user } = this.props;
     return (
-      <div>
+      <FormWrapper>
         <Logo><img src={LogoImage} alt="logo" /></Logo>
         <SignupForm
           onSubmit={this.handleRegisterUser}
@@ -57,7 +57,7 @@ class Signup extends Component {
         <Footer>
           Already have an account? <Link to='/login'>Log in here</Link>
         </Footer>
-      </div>
+      </FormWrapper>
     );
   }
 }

@@ -3,3 +3,4 @@ export InputField from './InputField';
 export ErrorMessage from './ErrorMessage';
 export LoginForm from './LoginForm';
 export SignupForm from './SignupForm';
+export FormWrapper from './FormWrapper';

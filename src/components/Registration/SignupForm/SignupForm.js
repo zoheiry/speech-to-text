@@ -10,6 +10,8 @@ const Wrapper = styled('div')`
   flex-direction: column;
   padding: 30px;
   font-size: 16px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, .3);
+  margin: 30px 0;
 `;
 
 class SignupForm extends PureComponent {

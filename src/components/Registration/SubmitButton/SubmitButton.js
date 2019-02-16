@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import Button from '../../Button';
 
 const StyledButton = styled(Button)`
-  background-color: rgba(255,255,255,0.4);
   margin-top: 15px;
 `;
 
