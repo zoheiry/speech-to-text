@@ -8,7 +8,7 @@ const execute = (method, endpoint, data = {}, config = {}, headers = {}) => {
     'Cache-Control': 'no-cache',
     Pragma: 'no-cache',
     Expires: 0,
-    'x-access-token': getCookie('auth') || ''
+    'x-access-token': getCookie('auth') || '',
   };
 
   return axios({
@@ -27,7 +27,7 @@ export const handleAuthorizationFailure = (error) => {
     window.location.href = '/login'; // triggers a refresh to reset redux state
   }
   return error;
-}
+};
 
 const get = (endpoint, extraHeaders = {}) =>
   execute('get', endpoint, undefined, undefined, extraHeaders);
@@ -40,17 +40,22 @@ const put = (endpoint, data) => execute('put', endpoint, data);
 // const del = (endpoint) => execute('delete', endpoint);
 
 export const getUser = () =>
-  get('/api/user/self')
-    .then(response => userFromServer(response.data));
+  get('/api/user/self').then((response) => userFromServer(response.data));
 
 export const authenticateUser = ({ email, password }) =>
-  post('/api/user/authenticate', { email, password })
-    .then(response => ({ token: response.data.token, user: userFromServer(response.data.user) }));
+  post('/api/user/authenticate', { email, password }).then((response) => ({
+    token: response.data.token,
+    user: userFromServer(response.data.user),
+  }));
 
 export const createUser = ({ email, password, passwordConfirmation }) =>
-  post('/api/user/create', { email, password, passwordConfirmation })
-    .then(response => userFromServer(response.data));
+  post('/api/user/create', { email, password, passwordConfirmation }).then((response) =>
+    userFromServer(response.data)
+  );
 
 export const changePassword = (password) =>
-  put('api/user/self/change_password', { password })
-    .then(response => userFromServer(response.data));
+  put('api/user/self/change_password', { password }).then((response) =>
+    userFromServer(response.data)
+  );
+
+export const uploadRecording = (data) => post('/api/recording/upload', data);

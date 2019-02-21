@@ -22,10 +22,13 @@ module.exports = {
       }
     });
   },
-  getCurrentUser: (req, res) => {
-    User.findById(req.body.currentUserId)
-      .then((user) => res.send(user))
-      .catch((error) => res.status(422).send(error));
+  getCurrentUser: async (req, res) => {
+    try {
+      const user = await User.findById(req.body.currentUserId);
+      res.send(user);
+    } catch (err) {
+      res.status(422).send(err);
+    }
   },
   createUser: (req, res) => {
     const saltRounds = 10;
@@ -55,12 +58,13 @@ module.exports = {
     }
   },
   // TODO have a password confirmation check.
-  changePassword: (req, res) => {
-    User.findById(req.body.currentUserId).then((user) =>
-      user
-        .changePassword(req.body.password)
-        .then((_user) => res.send(_user))
-        .catch((error) => res.status(400).send(error))
-    );
+  changePassword: async (req, res) => {
+    try {
+      const user = await User.findById(req.body.currentUserId);
+      const _user = await user.changePassword(req.body.password);
+      res.send(_user);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   },
 };

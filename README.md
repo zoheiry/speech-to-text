@@ -10,6 +10,7 @@ Some notes about the features and technologies used to implement this app.
 ## Needed to run
 - mongo
 - node
+- Sox
 
 ## How to run
 - `npm install` or `yarn install` (I personally prefer`yarn`).

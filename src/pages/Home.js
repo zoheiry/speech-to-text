@@ -1,7 +1,10 @@
 import React from 'react';
+import UploadRecording from '../containers/UploadRecording';
 
 const Home = () => (
-  <div>Home</div>
+  <div>
+    <UploadRecording />
+  </div>
 );
 
 export default Home;

@@ -1,6 +1,7 @@
 const express = require('express');
 const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
+const recordingRouter = require('./routes/recording');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -30,7 +31,7 @@ app.use(helmet());
 
 /** set up routes {API Endpoints} */
 app.use('/api', authRouter);
-app.use('/api', validateUser, userRouter);
+app.use('/api', validateUser, userRouter, recordingRouter);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
