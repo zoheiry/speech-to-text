@@ -65,7 +65,7 @@ class UploadRecording extends PureComponent {
           />*/}
           <Recorder
             onRecordingComplete={this.onStopRecording}
-            onRecordingError={(err) => console.log(err)}
+            onRecordingError={() => { alert('error') }}
          />
           <button onClick={this.startRecording} type="button">
             Start

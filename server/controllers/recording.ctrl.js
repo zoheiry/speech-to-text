@@ -23,7 +23,15 @@ module.exports = {
             .slice(0, -1)
             .join('/') + '/' + name;
         await fs.move(path, newPath, { overwrite: true });
-        const outPath = await convertToWav(newPath, name);
+        let encoding;
+        let outPath;
+        if (name.indexOf('.flac') > -1) {
+          encoding = 'FLAC';
+          outPath = newPath;
+        } else {
+          encoding = 'LINEAR16';
+          outPath = await convertToWav(newPath, name);
+        }
         const uri = await uploadToGoogleCloud(outPath);
         if (!uri) {
           res.status(500).send('Failed to save file to google cloud, please try again later');
@@ -31,7 +39,7 @@ module.exports = {
         }
         const audio = { uri };
         const config = {
-          encoding: 'LINEAR16',
+          encoding,
           sampleRateHertz: 44100,
           languageCode: 'en-US',
         };

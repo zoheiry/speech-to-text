@@ -1,5 +1,3 @@
-import ffmpeg from 'ffmpeg';
-
 export const toBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -8,19 +6,5 @@ export const toBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-export const blobToFile = (blob, fileName = 'Recording') =>
+export const blobToFile = (blob, fileName = 'Recording.mp3') =>
   new File([blob], fileName);
-
-
-// export const convertToMp3 = (blob) =>
-//   new Promise((resolve, reject) => {
-//     ffmpeg(URL.createObjectURL(blob).replace('blob:', '')).then(audio => {
-//       audio.fnExtractSoundToMp3('./sound.mp3', (err, file) => {
-//         if (err) {
-//           reject(err);
-//         } else {
-//           resolve(file);
-//         }
-//       })
-//     })
-//   })
