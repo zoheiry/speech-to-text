@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 
 import OverlayLoading from '../components/OverlayLoading';
+import Navbar from '../components/Navbar';
 import { getUser } from '../actions/user';
 import { getCookie, deleteCookie } from '../utils/cookies';
 
@@ -49,7 +50,10 @@ class Main extends PureComponent {
 
     if (user.isFetching) {
       return <OverlayLoading />;
+    } else if (user.id) {
+      return <Navbar />;
     }
+
     return null;
   }
 }

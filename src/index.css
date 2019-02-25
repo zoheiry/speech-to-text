@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  padding-top: 50px; /* navbar height */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -17,3 +17,6 @@ Some notes about the features and technologies used to implement this app.
 - run the monogo daemon by running `mongod`.
 - run the node server `node server/app.js`.
 - run the webpack server `npm start` or `yarn start`.
+
+## Sending emails
+To send emails you have to add your email and password in the .env file (see .env.example) and make sure that in your google accounts settings you have "allow less secure apps" turned on (if you are sending emails from your localhost).

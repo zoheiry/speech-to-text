@@ -1,10 +1,11 @@
 const speech = require('@google-cloud/speech');
 const formidable = require('formidable');
-const exec = require('child_process').exec;
+const fs = require('fs-extra');
 
 const Recording = require('../models/Recording');
 const { uploadToGoogleCloud } = require('../utils/gCloud');
-const { convertToFlac } = require('../utils/audio');
+const { convertToWav } = require('../utils/audio');
+const { sendEmail } = require('../utils/mailer');
 
 const client = new speech.SpeechClient();
 
@@ -15,8 +16,14 @@ module.exports = {
       if (err) {
         res.status(400).send(err);
       } else {
-        const { path, name } = files.file;
-        const outPath = await convertToFlac(path, name);
+        const { name, path } = files.file;
+        const newPath =
+          path
+            .split('/')
+            .slice(0, -1)
+            .join('/') + '/' + name;
+        await fs.move(path, newPath, { overwrite: true });
+        const outPath = await convertToWav(newPath, name);
         const uri = await uploadToGoogleCloud(outPath);
         if (!uri) {
           res.status(500).send('Failed to save file to google cloud, please try again later');
@@ -24,7 +31,7 @@ module.exports = {
         }
         const audio = { uri };
         const config = {
-          encoding: 'FLAC',
+          encoding: 'LINEAR16',
           sampleRateHertz: 44100,
           languageCode: 'en-US',
         };
@@ -38,7 +45,7 @@ module.exports = {
         } catch (err) {
           console.log(err);
         }
-        let response;
+        let response = {};
         try {
           [response] = await operation.promise();
         } catch (err) {
@@ -60,6 +67,10 @@ module.exports = {
             res.sendStatus(400);
           } else {
             res.send(recording);
+            sendEmail({
+              to: 'ali.elzoheiry@gmail.com',
+              text: transcribedText,
+            });
           }
         });
       }
