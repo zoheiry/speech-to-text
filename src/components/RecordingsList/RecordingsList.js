@@ -8,14 +8,14 @@ import styled from 'styled-components';
 import { Table } from '@fashiontrade/wardrobe';
 
 const IdCell = styled(Table.Cell)`
-  font-size: 16px;
+  font-size: 14px !important;
   color: #999;
 `;
 
 const StyledTable = styled(Table)`
-  max-width: 1000px;
   color: #333;
   font-size: 18px;
+  text-align: left;
 `;
 
 const TranscriptLink = styled(Link)`
@@ -42,8 +42,8 @@ const renderRecording = (recording = {}) => {
       <Table.Cell>{name}</Table.Cell>
       <Table.Cell>
         <TranscriptLink to={`/recordings/${id}`}>
-          <span>Read transcript</span>
           <FiExternalLink />
+          <span>Read transcript</span>
         </TranscriptLink>
       </Table.Cell>
     </Table.Row>
@@ -51,7 +51,7 @@ const renderRecording = (recording = {}) => {
 };
 
 const RecordingsList = ({ recordings }) => (
-  <StyledTable layout={[1.2, 1, 1, 1]} minWidth="500px">
+  <StyledTable minWidth="500px">
     <Table.Header>
       <Table.Cell>ID</Table.Cell>
       <Table.Cell>Uploaded at</Table.Cell>

@@ -8,10 +8,12 @@ import RecordingsList from '../components/RecordingsList';
 
 const Wrapper = styled('div')`
   padding: 30px 15px;
+  text-align: center;
 `;
 
 const ListWrapper = styled('div')`
-  margin: 30px 0;
+  margin: 30px auto;
+  max-width: 1000px;
 `;
 
 const Recordings = ({ recordings }) => (

@@ -4,9 +4,7 @@ import styled from 'styled-components';
 
 const Body = styled('div')`
   padding: 15px;
-  margin: 15px 0;
-  background: #f5f5f5;
-  max-width: 600px;
+  background: #f5f5f5;  
   border-radius: 5px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);
   letter-spacing: 1px;

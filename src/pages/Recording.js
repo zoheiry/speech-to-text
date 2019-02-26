@@ -8,7 +8,13 @@ import Title from '../components/Title';
 import Transcript from '../components/Transcript';
 
 const Wrapper = styled('div')`
-  padding: 30px 15px;
+  padding: 30px 15px 30px 15px;
+  text-align: center;
+`;
+
+const TranscriptWrapper = styled('div')`
+  margin: 15px auto;
+  max-width: 600px;
 `;
 
 const Recording = ({ match, recordings }) => {
@@ -21,7 +27,9 @@ const Recording = ({ match, recordings }) => {
   return (
     <Wrapper>
       <Title>Transcript | {recording.name}</Title>
-      <Transcript text={recording.transcribedText} />
+      <TranscriptWrapper>
+        <Transcript text={recording.transcribedText} />
+      </TranscriptWrapper>
     </Wrapper>
   );
 };
