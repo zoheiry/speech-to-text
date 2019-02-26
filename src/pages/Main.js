@@ -47,12 +47,12 @@ class Main extends PureComponent {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, history } = this.props;
 
     if (user.isFetching) {
       return <OverlayLoading />;
     } else if (user.id) {
-      return <Navbar />;
+      return <Navbar history={history} />;
     }
 
     return null;

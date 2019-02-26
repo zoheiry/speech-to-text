@@ -7,10 +7,14 @@ const bucket = storage.bucket(BUCKET_NAME);
 
 const uploadToGoogleCloud = async (filePath) => {
   const fileName = path.basename(filePath);
-
-  await bucket.upload(filePath);
-
-  return `gs://${BUCKET_NAME}/${fileName}`;
+  try {
+    await bucket.upload(filePath);
+    console.log('File successfully uploaded to google cloud');
+    return `gs://${BUCKET_NAME}/${fileName}`;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 };
 
 module.exports = { uploadToGoogleCloud };

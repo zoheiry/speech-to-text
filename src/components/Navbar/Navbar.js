@@ -14,24 +14,29 @@ const StyledNavbar = styled('nav')`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const activeStyles = css`
   color: #223c50;
-  background: #fff;
+  background: #fff !important;
   text-decoration: none !important;
+`;
+
+const hoverStyles = css`
+  background: rgba(255,255,255,.3);
 `;
 
 const StyledLink = styled(Link)`
   color: #fff;
   text-decoration: none;
   padding: 15px;
+  transition: .3s;
 
   &:hover {
-    text-decoration: underline;
+    ${hoverStyles}
   }
-  ${p => p.highlight ? activeStyles: ''};
+  ${(p) => (p.highlight ? activeStyles : '')};
 `;
 
 const LinksWrapper = styled('div')`
@@ -40,27 +45,47 @@ const LinksWrapper = styled('div')`
   }
 `;
 
+const getActiveLinkFromLocation = (location) =>
+  location.pathname.indexOf('recordings') > -1 ? 'recordings' : 'home';
+
 class Navbar extends PureComponent {
   state = {
-    activeLink: 'home',
+    activeLink: getActiveLinkFromLocation(this.props.history.location),
   };
+
+  unlisten = null;
+
+  componentDidMount() {
+    this.unlisten = this.props.history.listen((location) => {
+      const activeLink = getActiveLinkFromLocation(location);
+      this.setState({ activeLink });
+    });
+  }
+
+  componentWillUnmount() {
+    this.unlisten();
+  }
 
   logout = () => {
     deleteCookie('auth');
     window.location.href = '/login';
-  }
+  };
 
   render() {
     const { activeLink } = this.state;
 
     return (
       <StyledNavbar>
-        <StyledLink to="/" highlight={activeLink === 'home'}>Home</StyledLink>
+        <StyledLink to="/" highlight={activeLink === 'home'}>
+          Home
+        </StyledLink>
         <LinksWrapper>
           <StyledLink to="/recordings" highlight={activeLink === 'recordings'}>
             My recordings
           </StyledLink>
-          <StyledLink to="/" onClick={this.logout}>Logout</StyledLink>
+          <StyledLink to="/" onClick={this.logout}>
+            Logout
+          </StyledLink>
         </LinksWrapper>
       </StyledNavbar>
     );

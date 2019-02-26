@@ -18,7 +18,7 @@ const recordings = (state = initialState, action) => {
       return {
         ...state,
         isUploading: false,
-        items: [...state.items, action.payload.data],
+        items: [action.payload.data, ...state.items, ],
       };
     }
     case types.UPLOAD_RECORDING_FAIL: {

@@ -91,7 +91,9 @@ module.exports = {
 
   getUserRecordings: async (req, res) => {
     try {
-      const userRecordings = await Recording.find({ user: req.body.currentUserId });
+      const userRecordings = await Recording.find({ user: req.body.currentUserId }).sort({
+        createdAt: 'desc',
+      });
       if (!userRecordings) {
         return res.sendStatus(404);
       }
@@ -99,5 +101,5 @@ module.exports = {
     } catch (err) {
       res.send(err);
     }
-  }
+  },
 };

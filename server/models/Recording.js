@@ -15,6 +15,6 @@ let RecordingSchema = new mongoose.Schema({
     required: true,
   },
   transcribedText: String,
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Recording', RecordingSchema);
