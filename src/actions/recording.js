@@ -2,9 +2,12 @@ import * as types from '../constants/ActionTypes';
 
 const uploadRecordingRequest = () => ({ type: types.UPLOAD_RECORDING_REQUEST });
 
-const uploadRecordingSuccess = () => ({ type: types.UPLOAD_RECORDING_SUCCESS });
+const uploadRecordingSuccess = (data) => ({
+  type: types.UPLOAD_RECORDING_SUCCESS,
+  payload: { data },
+});
 
-const uploadRecordingFail = () => ({ type: types.UPLOAD_RECORDING_FAIL });
+const uploadRecordingFail = (err) => ({ type: types.UPLOAD_RECORDING_FAIL, err });
 
 export const uploadRecording = (file) => (dispatch, _, api) => {
   if (!file) {
@@ -17,8 +20,27 @@ export const uploadRecording = (file) => (dispatch, _, api) => {
   data.append('name', file.name);
   return api
     .uploadRecording(data)
-    .then(() => dispatch(uploadRecordingSuccess()))
-    .catch(() => dispatch(uploadRecordingFail()));
+    .then((data) => dispatch(uploadRecordingSuccess(data)))
+    .catch((err) => dispatch(uploadRecordingFail(err)));
 };
+
+
+const getRecordingsRequest = () => ({ type: types.GET_RECORDINGS_REQUEST });
+
+const getRecordingsSuccess = (data) => ({
+  type: types.GET_RECORDINGS_SUCCESS,
+  payload: { data },
+});
+
+const getRecordingsFail = (err) => ({ type: types.GET_RECORDINGS_FAIL, err });
+
+export const getRecordings = () => (dispatch, _, api) => {
+  dispatch(getRecordingsRequest());
+
+  return api
+    .getRecordings()
+    .then((data) => dispatch(getRecordingsSuccess(data)))
+    .catch((err) => dispatch(getRecordingsFail(err)))
+}
 
 export default { uploadRecording };

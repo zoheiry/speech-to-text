@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ReactMic } from 'react-mic';
 import Recorder from 'react-mp3-recorder'
 
 import { uploadRecording } from '../actions/recording';
@@ -55,17 +54,10 @@ class UploadRecording extends PureComponent {
         )}
 
         <div>
-          {/*<ReactMic
-            record={this.state.record}
-            className="sound-wave"
-            onStop={this.onStopRecording}
-            onData={this.onReceiveData}
-            strokeColor="#ccc"
-            backgroundColor="#f5f5f5"
-          />*/}
           <Recorder
             onRecordingComplete={this.onStopRecording}
-            onRecordingError={() => { alert('error') }}
+            onMouseDown={() => console.log('mouse is DOWN')}
+            onMouseUp={() => console.log('mouse is UP')}
          />
           <button onClick={this.startRecording} type="button">
             Start

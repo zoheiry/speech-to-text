@@ -7,6 +7,7 @@ import { get } from 'lodash';
 import OverlayLoading from '../components/OverlayLoading';
 import Navbar from '../components/Navbar';
 import { getUser } from '../actions/user';
+import { getRecordings } from '../actions/recording';
 import { getCookie, deleteCookie } from '../utils/cookies';
 
 class Main extends PureComponent {
@@ -37,7 +38,7 @@ class Main extends PureComponent {
   }
 
   onUserLoad = () => {
-    // fetch user resources.
+    this.props.getRecordings();
   }
 
   validAuthToken = () => {
@@ -72,6 +73,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getUser: () => dispatch(getUser()),
+  getRecordings: () => dispatch(getRecordings()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
