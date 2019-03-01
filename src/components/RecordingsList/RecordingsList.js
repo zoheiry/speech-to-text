@@ -36,7 +36,7 @@ const renderRecording = (recording = {}) => {
   const { createdAt, name, id } = recording;
   const date = moment(createdAt).format('DD MMM YYYY - HH:mm');
   return (
-    <Table.Row>
+    <Table.Row key={id}>
       <IdCell title={id}>{id}</IdCell>
       <Table.Cell>{date}</Table.Cell>
       <Table.Cell>{name}</Table.Cell>

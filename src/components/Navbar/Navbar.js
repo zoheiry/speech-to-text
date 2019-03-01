@@ -83,7 +83,7 @@ class Navbar extends PureComponent {
           <StyledLink to="/recordings" highlight={activeLink === 'recordings'}>
             My recordings
           </StyledLink>
-          <StyledLink to="/" onClick={this.logout}>
+          <StyledLink to="#" onClick={this.logout}>
             Logout
           </StyledLink>
         </LinksWrapper>

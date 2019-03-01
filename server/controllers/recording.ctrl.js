@@ -56,7 +56,9 @@ module.exports = {
         [operation] = await client.longRunningRecognize(request);
       } catch (err) {
         console.log(err);
+        return res.status(500).send(err);
       }
+      console.log('got operation, trying response...');
       let response;
       try {
         [response] = await operation.promise();
