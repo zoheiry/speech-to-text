@@ -4,7 +4,7 @@
 
 ## How to run
 - `npm install` or `yarn install` (I personally prefer`yarn`).
-- run `cp .env.example .env` and fill in the correct env values.
+- run `cp .env.example .env` and fill in the correct values in the `.env` file.
 - run the monogo daemon by running `mongod`.
 - run the node server `yarn server` or `npm run server`.
 - run the webpack server `yarn start` or `npm start`.
