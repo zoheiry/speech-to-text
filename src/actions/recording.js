@@ -2,10 +2,7 @@ import * as types from '../constants/ActionTypes';
 
 const uploadRecordingRequest = () => ({ type: types.UPLOAD_RECORDING_REQUEST });
 
-const uploadRecordingSuccess = (data) => ({
-  type: types.UPLOAD_RECORDING_SUCCESS,
-  payload: { data },
-});
+const uploadRecordingSuccess = () => ({ type: types.UPLOAD_RECORDING_SUCCESS });
 
 const uploadRecordingFail = (err) => ({ type: types.UPLOAD_RECORDING_FAIL, err });
 
@@ -20,7 +17,7 @@ export const uploadRecording = (file) => (dispatch, _, api) => {
   data.append('name', file.name);
   return api
     .uploadRecording(data)
-    .then((data) => dispatch(uploadRecordingSuccess(data)))
+    .then(() => dispatch(uploadRecordingSuccess()))
     .catch((err) => dispatch(uploadRecordingFail(err)));
 };
 

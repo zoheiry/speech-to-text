@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { get as lodashGet } from 'lodash';
 import { fromServer as userFromServer } from './transformers/user';
-import { recordingFromServer, recordingsFromServer } from './transformers/recordings';
+import { recordingsFromServer } from './transformers/recordings';
 import { getCookie, deleteCookie } from '../utils/cookies';
 
 const execute = (method, endpoint, data = {}, config = {}, headers = {}) => {
@@ -59,8 +59,7 @@ export const changePassword = (password) =>
     userFromServer(response.data)
   );
 
-export const uploadRecording = (data) =>
-  post('/api/recording/upload', data).then((response) => recordingFromServer(response.data));
+export const uploadRecording = (data) => post('/api/recording/upload', data);
 
 export const getRecordings = () =>
   get('/api/recordings').then((response) => recordingsFromServer(response.data));

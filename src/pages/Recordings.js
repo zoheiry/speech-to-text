@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Container } from '@fashiontrade/wardrobe';
 
+import { getRecordings } from '../actions/recording';
 import Title from '../components/Title';
 import RecordingsList from '../components/RecordingsList';
 
@@ -13,24 +15,38 @@ const Wrapper = styled('div')`
 
 const ListWrapper = styled('div')`
   margin: 30px auto;
-  max-width: 1000px;
 `;
 
-const Recordings = ({ recordings }) => (
-  <Wrapper>
-    <Title>Your recordings</Title>
-    <ListWrapper>
-      <RecordingsList recordings={recordings} />
-    </ListWrapper>
-  </Wrapper>
-);
+class Recordings extends PureComponent {
+  componentDidMount() {
+    this.props.getRecordings();
+  }
+
+  render() {
+    return (
+      <Wrapper>
+        <Container>
+          <Title>Your recordings</Title>
+          <ListWrapper>
+            <RecordingsList recordings={this.props.recordings} />
+          </ListWrapper>
+        </Container>
+      </Wrapper>
+    );
+  }
+}
 
 Recordings.propTypes = {
   recordings: PropTypes.object,
+  getRecordings: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   recordings: state.recordings,
 });
 
-export default connect(mapStateToProps)(Recordings);
+const mapDispatchToProps = (dispatch) => ({
+  getRecordings: () => dispatch(getRecordings()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Recordings);

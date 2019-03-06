@@ -2,6 +2,7 @@ const speech = require('@google-cloud/speech');
 const formidable = require('formidable');
 
 const Recording = require('../models/Recording');
+const User = require('../models/User');
 const { uploadToGoogleCloud } = require('../utils/gCloud');
 const { convertToWav } = require('../utils/audio');
 const { sendEmail } = require('../utils/mailer');
@@ -54,11 +55,12 @@ module.exports = {
       let operation;
       try {
         [operation] = await client.longRunningRecognize(request);
+        res.sendStatus(200);
       } catch (err) {
         console.log(err);
         return res.status(500).send(err);
       }
-      console.log('got operation, trying response...');
+      console.log('Got operation. Transcribing text...');
       let response;
       try {
         [response] = await operation.promise();
@@ -75,17 +77,22 @@ module.exports = {
         fileUri: uri,
         transcribedText,
         name,
-      }).save((error, recording) => {
+      }).save(async (error, recording) => {
         if (error) {
-          res.status(400).send(error);
+          console.log(error);
         } else if (!recording) {
-          res.sendStatus(400);
+          console.log('Failed to save recording.');
         } else {
-          res.send(recording);
-          sendEmail({
-            to: 'ali.elzoheiry@gmail.com',
-            text: transcribedText,
-          });
+          try {
+            const user = await User.findById(req.body.currentUserId);
+            console.log(`Sending email to ${user.email}`);
+            sendEmail({
+              to: user.email,
+              text: transcribedText,
+            });
+          } catch (err) {
+            console.log(err);
+          }
         }
       });
     });

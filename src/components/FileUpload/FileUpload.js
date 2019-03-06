@@ -47,7 +47,7 @@ const FileUpload = ({ onSelectFile, label, selected, loading }) => (
       capture
       id="uploadRecording"
       onChange={(e) => onSelectFile(e.target.files[0])}
-      accept="audio/*"      
+      accept="audio/mp3,audio/flac,audio/wav"      
     />
     <StyledLabel selected={selected} htmlFor="uploadRecording" disabled={loading}>
       {loading

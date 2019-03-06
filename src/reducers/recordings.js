@@ -1,8 +1,9 @@
 import * as types from '../constants/ActionTypes';
+import { IDLE, BUSY, SUCCESS, ERROR } from '../constants/UploadStatuses';
 
 const initialState = {
   isFetching: null,
-  isUploading: null,
+  uploadStatus: IDLE,
   items: [],
 };
 
@@ -11,20 +12,19 @@ const recordings = (state = initialState, action) => {
     case types.UPLOAD_RECORDING_REQUEST: {
       return {
         ...state,
-        isUploading: true,
+        uploadStatus: BUSY,
       };
     }
     case types.UPLOAD_RECORDING_SUCCESS: {
       return {
         ...state,
-        isUploading: false,
-        items: [action.payload.data, ...state.items, ],
+        uploadStatus: SUCCESS,
       };
     }
     case types.UPLOAD_RECORDING_FAIL: {
       return {
         ...state,
-        isUploading: false,
+        uploadStatus: ERROR,
         uploadError: action.err,
       };
     }
