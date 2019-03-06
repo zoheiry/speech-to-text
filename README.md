@@ -6,8 +6,8 @@
 - `npm install` or `yarn install` (I personally prefer`yarn`).
 - run `cp .env.example .env` and fill in the correct env values.
 - run the monogo daemon by running `mongod`.
-- run the node server `node server/app.js`.
-- run the webpack server `npm start` or `yarn start`.
+- run the node server `yarn server` or `npm run server`.
+- run the webpack server `yarn start` or `npm start`.
 
 ## Sending emails
 To send emails you have to add your email and password in the .env file (see .env.example) and make sure that in your google accounts settings you have "allow less secure apps" turned on. [See the steps to that here](https://support.google.com/accounts/answer/6010255?hl=en)
