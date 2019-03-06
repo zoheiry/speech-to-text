@@ -21,6 +21,7 @@ Some notes about the features and technologies used to implement this app.
 - React redux used for a centralized application state.
 - Axios used for richer HTTP requests.
 - styled-components for CSS in JS.
+- react-mp3-recorder for recording mp3 files in the browser.
 - SOX used for audio file conversion.
 
 
